@@ -1,0 +1,185 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Real-time Search with Debouncing</title>
+    <style>
+        /* Base styling */
+        body {
+            font-family: 'Arial', sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f4f4f4;
+        }
+
+        /* Navbar styling */
+        .navbar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 15px 20px;
+            background-color: #007bff;
+            color: white;
+        }
+
+        .navbar h1 {
+            margin: 0;
+            font-size: 24px;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 15px;
+        }
+
+        .nav-links a {
+            color: white;
+            text-decoration: none;
+            font-size: 16px;
+        }
+
+        .nav-links a:hover {
+            text-decoration: underline;
+        }
+
+        /* Hamburger icon for mobile view */
+        .menu-icon {
+            display: none;
+            font-size: 28px;
+            cursor: pointer;
+        }
+
+        .nav-links.mobile {
+            display: none;
+            flex-direction: column;
+            gap: 10px;
+        }
+
+        .nav-links.mobile.active {
+            display: flex;
+        }
+
+        /* Container to hold the input and results */
+        .search-container {
+            width: 100%;
+            max-width: 500px;
+            padding: 20px;
+            background: white;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            border-radius: 10px;
+            margin: 30px auto;
+        }
+
+        h2 {
+            font-size: 24px;
+            text-align: center;
+            margin-bottom: 20px;
+            color: #333;
+        }
+
+        /* Input styling */
+        input[type="text"] {
+            width: 100%;
+            padding: 10px 15px;
+            font-size: 16px;
+            border: 2px solid #ccc;
+            border-radius: 5px;
+            outline: none;
+            box-sizing: border-box;
+            transition: border-color 0.3s;
+        }
+
+        input[type="text"]:focus {
+            border-color: #007bff;
+        }
+
+        /* Results list styling */
+        ul {
+            list-style-type: none;
+            padding: 0;
+            margin-top: 15px;
+        }
+
+        .result-item {
+            padding: 10px;
+            background-color: #f1f1f1;
+            margin-bottom: 10px;
+            border-radius: 5px;
+            transition: background-color 0.3s;
+        }
+
+        .result-item:hover {
+            background-color: #007bff;
+            color: white;
+        }
+
+        /* Responsive Design */
+        @media (max-width: 600px) {
+            .search-container {
+                width: 90%;
+            }
+
+            h2 {
+                font-size: 20px;
+            }
+
+            input[type="text"] {
+                font-size: 14px;
+            }
+
+            /* Navbar changes for mobile */
+            .nav-links {
+                display: none;
+            }
+
+            .menu-icon {
+                display: block;
+            }
+
+            .navbar h1 {
+                font-size: 20px;
+            }
+        }
+
+    </style>
+</head>
+<body>
+
+    <!-- Navbar -->
+    <div class="navbar">
+        <h1>Search App</h1>
+        <div class="menu-icon" id="menuIcon">☰</div>
+        <div class="nav-links" id="navLinks">
+            <!-- <a href="#">Home</a>
+            <a href="#">About</a>
+            <a href="#">Services</a>
+            <a href="#">Contact</a> -->
+        </div>
+    </div>
+
+    <!-- Search container -->
+    <div class="search-container">
+        <h2>Real-time Search</h2>
+        <input type="text" id="search" placeholder="Type to search..." />
+        <ul id="results"></ul>
+    </div>
+
+    <!-- Load JS script with defer -->
+    <script defer src="script.js"></script>
+    <script>
+        // Responsive Navbar Toggle
+        const menuIcon = document.getElementById('menuIcon');
+        const navLinks = document.getElementById('navLinks');
+
+        menuIcon.addEventListener('click', () => {
+            navLinks.classList.toggle('active');
+        });
+    </script>
+    <!-- 
+    Difference between async and defer:
+    - `async` loads the script asynchronously and executes it as soon as it’s loaded. This might block HTML parsing if the script runs before the DOM is ready.
+    - `defer` ensures the script is executed after the HTML document is fully parsed, preventing any interference with HTML rendering. This is ideal when your script manipulates the DOM.
+    -->
+</body>
+</html>
